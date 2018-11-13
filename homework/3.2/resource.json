@@ -42,20 +42,6 @@
         "Standard_LRS"
       ]
     },
-    "vnetAddressPrefix": {
-      "type": "string",
-      "defaultValue": "10.0.0.0/16",
-      "metadata": {
-        "description": "Address prefix"
-      }
-    },
-    "subnetPrefix": {
-      "type": "string",
-      "defaultValue": "10.0.0.0/24",
-      "metadata": {
-        "description": "Subnet 1 Prefix"
-      }
-    },
     "location": {
       "type": "string",
       "defaultValue": "[resourceGroup().location]",
@@ -63,36 +49,27 @@
         "description": "Location for all resources."
       }
     }
-
   },
   "variables": {
-    "prefix": "[concat(parameters('branch'), '-', parameters('project'), '-',parameters('env'),'-')]",
-    "virtualMachineSize": "Standard_B1s",
-    "virtualMachineName": "[concat(variables('prefix'), '1vm')]",
-    "nic": "[concat(variables('virtualMachineName'), '-1nic')]",
-    "publicIPAddressName": "[concat(variables('virtualMachineName'), '-1pip')]",
-    "virtualNetworkName": "[concat(variables('prefix'), 'vnet')]",
-    "subnetName": "[concat(variables('virtualNetworkName'), '-','1snet')]",
-    "networkSecurityGroupName": "[concat(variables('prefix'), '1nsg')]",
-    "subnetRef": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('virtualNetworkName'), variables('subnetName'))]",
-    "StorageAccountName": "[concat(parameters('branch'), parameters('project'), parameters('env'))]",
-    "diskNamePrefix": "[concat('disk-', resourceGroup().location, '-', variables('virtualMachineName'))]"
-
+    "StorageAccountName": "[concat(parameters('branch'), parameters('project'), parameters('env'), '1', 'stg')]",
   },
-
   "resources": [
     {
       "type": "Microsoft.Storage/storageAccounts",
       "name": "[variables('storageAccountName')]",
-      "apiVersion": "2017-06-01",
+      "apiVersion": "2016-01-01",
       "location": "[parameters('location')]",
       "sku": {
-        "name": "[parameters('storageAccountType')]"
+        "name": "Standard_LRS"
       },
       "kind": "Storage",
       "properties": {}
     }
   ],
   "outputs": {
+    "storageUri": {
+      "type": "string",
+      "value": "[reference(variables('storageAccountName')).primaryEndpoints.blob]"
+    }
   }
 }
