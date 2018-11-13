@@ -2,33 +2,11 @@
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
-    "branch": {
+    "storageAccountName":{
       "type": "string",
       "metadata": {
-        "description": "Branch name"
+        "description": "Azure Storage account name."
       }
-    },
-    "project": {
-      "type": "string",
-      "metadata": {
-        "description": "Project name"
-      }
-    },
-    "env": {
-      "type": "string",
-      "metadata": {
-        "description": "Environment name"
-      }
-    },
-    "storageAccountType": {
-      "type": "string",
-      "defaultValue": "Standard_LRS",
-      "metadata": {
-        "description": "Storage Account type for the VM and VM diagnostic storage"
-      },
-      "allowedValues": [
-        "Standard_LRS"
-      ]
     },
     "location": {
       "type": "string",
@@ -38,14 +16,10 @@
       }
     }
   },
-  "variables": {
-    "StorageAccountName": "[concat(parameters('branch'), parameters('project'), parameters('env'), '1', 'stg')]",
-      "prefix": "[concat(parameters('branch'), '-', parameters('project'), '-',parameters('env'),'-')]",
-  },
   "resources": [
     {
       "type": "Microsoft.Storage/storageAccounts",
-      "name": "[variables('storageAccountName')]",
+      "name": "[parameters('storageAccountName')]",
       "apiVersion": "2016-01-01",
       "location": "[parameters('location')]",
       "sku": {
@@ -56,10 +30,9 @@
     }
   ],
   "outputs": {
-    "storageUri": {
-      "type": "string",
-      "value": "[reference(variables('storageAccountName')).primaryEndpoints.blob]"
-    }
+      "storageUri": {
+          "type": "string",
+          "value": "[reference(parameters('storageAccountName')).primaryEndpoints.blob]"
+        }
   }
 }
-
