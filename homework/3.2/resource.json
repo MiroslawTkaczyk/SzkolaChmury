@@ -2,18 +2,6 @@
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
-    "adminUsername": {
-      "type": "string",
-      "metadata": {
-        "description": "Default Admin username"
-      }
-    },
-    "adminPassword": {
-      "type": "securestring",
-      "metadata": {
-        "description": "Default Admin password"
-      }
-    },
     "branch": {
       "type": "string",
       "metadata": {
@@ -52,6 +40,7 @@
   },
   "variables": {
     "StorageAccountName": "[concat(parameters('branch'), parameters('project'), parameters('env'), '1', 'stg')]",
+      "prefix": "[concat(parameters('branch'), '-', parameters('project'), '-',parameters('env'),'-')]",
   },
   "resources": [
     {
@@ -73,3 +62,4 @@
     }
   }
 }
+
