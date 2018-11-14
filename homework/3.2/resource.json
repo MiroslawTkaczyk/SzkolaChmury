@@ -2,20 +2,7 @@
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
-    "storageAccountType": {
-      "type": "string",
-      "defaultValue": "Standard_LRS",
-      "allowedValues": [
-        "Standard_LRS",
-        "Standard_GRS",
-        "Standard_ZRS",
-        "Premium_LRS"
-      ],
-      "metadata": {
-        "description": "Storage Account type"
-      }
-    },
-    "storageAccountName": {
+    "storageAccountName":{
       "type": "string",
       "metadata": {
         "description": "Azure Storage account name."
@@ -29,25 +16,23 @@
       }
     }
   },
-  "variables": {
-  },
   "resources": [
     {
       "type": "Microsoft.Storage/storageAccounts",
       "name": "[parameters('storageAccountName')]",
-      "apiVersion": "2018-02-01",
+      "apiVersion": "2016-01-01",
       "location": "[parameters('location')]",
       "sku": {
-        "name": "[parameters('storageAccountType')]"
+        "name": "Standard_LRS"
       },
-      "kind": "StorageV2",
+      "kind": "Storage",
       "properties": {}
     }
   ],
   "outputs": {
-    "storageAccountUri": {
-      "type": "string",
-      "value": "[reference(parameters('storageAccountName')).primaryEndpoint.blob]"
-    }
+      "storageUri": {
+          "type": "string",
+          "value": "[reference(parameters('storageAccountName')).primaryEndpoints.blob]"
+        }
   }
 }
