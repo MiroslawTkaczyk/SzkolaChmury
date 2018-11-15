@@ -1,4 +1,4 @@
-﻿{
+{
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
@@ -60,19 +60,18 @@
     }
   },
   "variables": {
-    "prefix": "[concat(parameters('branch'), '-', parameters('project'), '-',parameters('env'),'-')]",
     "virtualMachineSize": "Standard_B1s",
-    "virtualMachineName1": "[concat(variables('prefix'), '1vm')]",
-    "virtualMachineName2": "[concat(variables('prefix'), '2vm')]",
-    "nic1": "[concat(variables('virtualMachineName1'), '-1nic')]",
-    "nic2": "[concat(variables('virtualMachineName2'), '-2nic')]",
-    "publicIPAddressName1": "[concat(variables('virtualMachineName1'), '-1pip')]",
-    "publicIPAddressName2": "[concat(variables('virtualMachineName2'), '-2pip')]",
-    "virtualNetworkName": "[concat(variables('prefix'), 'vnet')]",
-    "subnet1Name": "[concat(variables('virtualNetworkName'), '-','1snet')]",
-    "subnet2Name": "[concat(variables('virtualNetworkName'), '-','2snet')]",
-    "networkSecurityGroupName1": "[concat(variables('prefix'), '1nsg')]",
-    "networkSecurityGroupName2": "[concat(variables('prefix'), '2nsg')]",
+    "virtualMachineName1": "1vm",
+    "virtualMachineName2": "2vm",
+    "nic1": "1nic",
+    "nic2": "2nic",
+    "publicIPAddressName1": "1pip",
+    "publicIPAddressName2": "2pip",
+    "virtualNetworkName": "vnet",
+    "subnet1Name": "1snet",
+    "subnet2Name": "2snet",
+    "networkSecurityGroupName1": "1nsg",
+    "networkSecurityGroupName2": "2nsg",
     "subnet1Ref": "[resourceId('Microsoft.Network/virtualNetworks/subnets', variables('virtualNetworkName'), variables('subnet1Name'))]"
 
 
