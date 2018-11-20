@@ -28,13 +28,6 @@
         "description": "Subnet1 address."
       }
     },
-    "subnet1Name": {
-      "type": "string",
-      "defaultValue": "subnet1",
-      "metadata": {
-        "description": "Subnet1 name."
-      }
-    },
     "subnet2Prefix": {
       "type": "string",
       "defaultValue": "10.0.1.0/24",
@@ -42,15 +35,12 @@
         "description": "Subnet2 address."
       }
     },
-    "subnet2Name": {
-      "type": "string",
-      "defaultValue": "subnet2",
-      "metadata": {
-        "description": "Subnet2 name."
-      }
-    }
+    
   },
-  "variables": {},
+  "variables": {
+      "subnet1Name": "subnet1",
+    "subnet2Name": "subnet2"
+},
   "resources": [
     {
       "apiVersion": "2017-06-01",
@@ -65,7 +55,7 @@
         },
         "subnets": [
           {
-            "name": "[parameters('subnet1Name')]",
+            "name": "[variables('subnet1Name')]",
             "properties": {
               "addressPrefix": "[parameters('subnet1Prefix')]",
               "networkSecurityGroup": {
@@ -74,7 +64,7 @@
             }
           },
           {
-            "name": "[parameters('subnet2Name')]",
+            "name": "[variables('subnet2Name')]",
             "properties": {
               "addressPrefix": "[parameters('subnet2Prefix')]",
               "networkSecurityGroup": {
