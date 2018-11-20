@@ -1,73 +1,98 @@
 {
-    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
-    "contentVersion": "1.0.0.0",
-    "parameters": {
-        "vnetNameOrig": {
-            "type": "string",
-            "maxLength": 64,
-            "minLength": 2,
-            "metadata": {
-              "description": "Virtual network name."
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "vnetNameOrig": {
+      "type": "string",
+      "metadata": {
+        "description": "Virtual network name."
+      }
+    },
+    "nsgroupName": {
+      "type": "string",
+      "metadata": {
+        "description": "Network security group name."
+      }
+    },
+    "vnetAddressPrefix": {
+      "type": "string",
+      "defaultValue": "10.0.0.0/16",
+      "metadata": {
+        "description": "Vnet address."
+      }
+    },
+    "subnet1Prefix": {
+      "type": "string",
+      "defaultValue": "10.0.0.0/24",
+      "metadata": {
+        "description": "Subnet1 address."
+      }
+    },
+    "subnet1Name": {
+      "type": "string",
+      "defaultValue": "subnet1",
+      "metadata": {
+        "description": "Subnet1 name."
+      }
+    },
+    "subnet2Prefix": {
+      "type": "string",
+      "defaultValue": "10.0.1.0/24",
+      "metadata": {
+        "description": "Subnet2 address."
+      }
+    },
+    "subnet2Name": {
+      "type": "string",
+      "defaultValue": "subnet2",
+      "metadata": {
+        "description": "Subnet2 name."
+      }
+    }
+  },
+  "variables": {},
+  "resources": [
+    {
+      "apiVersion": "2017-06-01",
+      "type": "Microsoft.Network/virtualNetworks",
+      "name": "[parameters('vnetNameOrig')]",
+      "location": "[resourceGroup().location]",
+      "properties": {
+        "addressSpace": {
+          "addressPrefixes": [
+            "[parameters('vnetAddressPrefix')]"
+          ]
+        },
+        "subnets": [
+          {
+            "name": "[parameters('subnet1Name')]",
+            "properties": {
+              "addressPrefix": "[parameters('subnet1Prefix')]",
+              "networkSecurityGroup": {
+                "id": "[resourceId('Microsoft.Network/networkSecurityGroups/', parameters('nsgroupName'))]"
+              }
             }
           },
-        "nsgroupName": {
-            "type": "string",
-            "maxLength": 64,
-            "minLength": 2,
-            "metadata": {
-              "description": "Network security group name."
-            }
-        }
-    },
-    "variables": {
-        "vnetAddressPrefix": "10.0.0.0/16",
-        "subnet1Prefix": "10.0.0.0/24",
-        "subnet1Name": "Subnet1",
-        "subnet2Prefix": "10.0.1.0/24",
-        "subnet2Name": "Subnet2"
-    },
-    "resources": [
-        {
-            "apiVersion": "2017-06-01",
-            "type": "Microsoft.Network/virtualNetworks",
-            "name": "[parameters('vnetNameOrig')]",
-            "location": "[resourceGroup().location]",
+          {
+            "name": "[parameters('subnet2Name')]",
             "properties": {
-                "addressSpace": {
-                    "addressPrefixes": [
-                        "[variables('vnetAddressPrefix')]"
-                    ]
-                },
-                "subnets": [
-                    {
-                        "name": "[variables('subnet1Name')]",
-                        "properties": {
-                            "addressPrefix": "[variables('subnet1Prefix')]",
-                            "networkSecurityGroup": {
-                                "id": "[resourceId('Microsoft.Network/networkSecurityGroups/', parameters('nsgroupName'))]"
-                            }
-                        }
-                    },
-                    {
-                        "name": "[variables('subnet2Name')]",
-                        "properties": {
-                            "addressPrefix": "[variables('subnet2Prefix')]",
-                            "networkSecurityGroup" : {
-                                "id": "[resourceId('Microsoft.Network/networkSecurityGroups/', parameters('nsgroupName'))]"
-                            }
-                        }
-                    }
-                ]
+              "addressPrefix": "[parameters('subnet2Prefix')]",
+              "networkSecurityGroup": {
+                "id": "[resourceId('Microsoft.Network/networkSecurityGroups/', parameters('nsgroupName'))]"
+              }
             }
-        }
-    ],
-    "outputs": {
-        "subnetsRefs": {
-            "type": "array",
-            "value": [
-                "[resourceId('Microsoft.Network/virtualNetworks/subnets/', parameters('vnetNameOrig'), variables('subnet1Name'))]",
-                "[resourceId('Microsoft.Network/virtualNetworks/subnets/', parameters('vnetNameOrig'), variables('subnet2Name'))]"
-            ]
-        }
+          }
+        ]
+      }
     }
+  ],
+  "outputs": {
+    "subnetsRefs": {
+      "type": "array",
+      "value": [
+        "[resourceId('Microsoft.Network/virtualNetworks/subnets/', parameters('vnetNameOrig'), parameters('subnet1Name'))]",
+        "[resourceId('Microsoft.Network/virtualNetworks/subnets/', parameters('vnetNameOrig'), parameters('subnet2Name'))]"
+      ]
+    }
+  }
 }
