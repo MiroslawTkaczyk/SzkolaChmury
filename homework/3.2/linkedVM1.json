@@ -14,12 +14,6 @@
     "subnetRef": {
       "type": "string"
     },
-    "publicIpAddressName": {
-      "type": "string"
-    },
-    "dnsName": {
-      "type": "string"
-    },
     "suffix": {
       "type": "string"
     }
@@ -28,13 +22,15 @@
     "vmName": "[concat(parameters('vmNameOrig'), parameters('suffix'))]",
     "nicName": "[concat('nic', parameters('suffix'))]",
     "adminUsername": "[parameters('adminUser')]",
+    "publicIpAddressName": "[concat('publicIp', parameters('suffix'))]",
+    "dnsName": "[resourceGroup().name]"
     "adminPassword": "[parameters('adminPassword')]"
   },
   "resources": [
     {
       "apiVersion": "2016-03-30",
       "type": "Microsoft.Network/publicIPAddresses",
-      "name": "[parameters('publicIpAddressName')]",
+      "name": "[variables('publicIpAddressName')]",
       "location": "[resourceGroup().location]",
       "properties": {
         "publicIPAllocationMethod": "Dynamic",
