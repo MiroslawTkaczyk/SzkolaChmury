@@ -19,6 +19,9 @@
     },
     "suffix": {
       "type": "string"
+    },
+    "publicIpAddressName": {
+      "type": "string"
     }
   },
   "variables": {
