@@ -23,7 +23,7 @@
     "nicName": "[concat('nic', parameters('suffix'))]",
     "adminUsername": "[parameters('adminUser')]",
     "publicIpAddressName": "[concat('publicIp', parameters('suffix'))]",
-    "dnsName": "[resourceGroup().name]"
+    "dnsName": "[resourceGroup().name]",
     "adminPassword": "[parameters('adminPassword')]"
   },
   "resources": [
