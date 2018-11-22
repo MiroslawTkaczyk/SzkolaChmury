@@ -2,98 +2,110 @@
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
-    "vnetName": {
-      "type": "string",
-      "metadata": {
-        "description": "Virtual network name."
-      }
+    "adminUser": {
+      "type": "string"
     },
-    "nsgroupName": {
-      "type": "string",
-      "metadata": {
-        "description": "Network security group name."
-      }
+    "adminPassword": {
+      "type": "securestring"
     },
-    "vnetAddressPrefix": {
-      "type": "string",
-      "defaultValue": "10.0.0.0/16",
-      "metadata": {
-        "description": "Vnet address."
-      }
+    "vmNameOrig": {
+      "type": "string"
     },
-    "subnet1Prefix": {
-      "type": "string",
-      "defaultValue": "10.0.0.0/24",
-      "metadata": {
-        "description": "Subnet1 address."
-      }
+    "subnetRef": {
+      "type": "string"
     },
-    "subnet1Name": {
-      "type": "string",
-      "defaultValue": "subnet1",
-      "metadata": {
-        "description": "Subnet1 address."
-      }
+    "prefix": {
+      "type": "string"
     },
-    "subnet2Name": {
-      "type": "string",
-      "defaultValue": "subnet2",
-      "metadata": {
-        "description": "Subnet1 address."
-      }
-    },
-    "subnet2Prefix": {
-      "type": "string",
-      "defaultValue": "10.0.1.0/24",
-      "metadata": {
-        "description": "Subnet2 address."
-      }
+    "suffix": {
+      "type": "string"
     }
-    
   },
-  "variables": {},
+  "variables": {
+    "vmName": "[concat(parameters('vmNameOrig'), parameters('suffix'))]",
+    "nicName": "[concat(parameters('prefix'), '-nic', parameters('suffix'))]",
+    "OsDiscName": "[concat(parameters('prefix'), '-OsDisc', parameters('suffix'))]",
+    "adminUsername": "[parameters('adminUser')]",
+    "publicIpAddressName": "[concat(parameters('prefix'), '-pip', parameters('suffix'))]",
+    "dnsName": "[resourceGroup().name]",
+    "adminPassword": "[parameters('adminPassword')]"
+  },
   "resources": [
     {
-      "apiVersion": "2017-06-01",
-      "type": "Microsoft.Network/virtualNetworks",
-      "name": "[parameters('vnetName')]",
+      "apiVersion": "2016-03-30",
+      "type": "Microsoft.Network/publicIPAddresses",
+      "name": "[variables('publicIpAddressName')]",
       "location": "[resourceGroup().location]",
       "properties": {
-        "addressSpace": {
-          "addressPrefixes": [
-            "[parameters('vnetAddressPrefix')]"
-          ]
-        },
-        "subnets": [
+        "publicIPAllocationMethod": "Dynamic",
+        "dnsSettings": {
+          "domainNameLabel": "[concat(variables('dnsName'), 'dns', parameters('suffix'))]"
+        }
+      }
+    },
+    {
+      "apiVersion": "2017-06-01",
+      "type": "Microsoft.Network/networkInterfaces",
+      "name": "[variables('nicName')]",
+      "location": "[resourceGroup().location]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Network/publicIPAddresses/', variables('publicIpAddressName'))]"
+      ],
+      "properties": {
+        "ipConfigurations": [
           {
-            "name": "[parameters('subnet1Name')]",
+            "name": "[concat('ipconfig', parameters('suffix'))]",
             "properties": {
-              "addressPrefix": "[parameters('subnet1Prefix')]",
-              "networkSecurityGroup": {
-                "id": "[resourceId('Microsoft.Network/networkSecurityGroups/', parameters('nsgroupName'))]"
-              }
-            }
-          },
-          {
-            "name": "[parameters('subnet2Name')]",
-            "properties": {
-              "addressPrefix": "[parameters('subnet2Prefix')]",
-              "networkSecurityGroup": {
-                "id": "[resourceId('Microsoft.Network/networkSecurityGroups/', parameters('nsgroupName'))]"
+              "privateIPAllocationMethod": "Dynamic",
+              "publicIPAddress": {
+                "id": "[resourceId('Microsoft.Network/publicIPAddresses', variables('publicIpAddressName'))]"
+              },
+              "subnet": {
+                "id": "[parameters('subnetRef')]"
               }
             }
           }
         ]
       }
+    },
+    {
+      "apiVersion": "2017-03-30",
+      "type": "Microsoft.Compute/virtualMachines",
+      "name": "[variables('vmName')]",
+      "location": "[resourceGroup().location]",
+      "dependsOn": [
+        "[resourceId('Microsoft.Network/networkInterfaces/', variables('nicName'))]"
+      ],
+      "properties": {
+        "hardwareProfile": {
+          "vmSize": "Standard_A1"
+        },
+        "osProfile": {
+          "computerName": "[variables('vmName')]",
+          "adminUsername": "[variables('adminUsername')]",
+          "adminPassword": "[variables('adminPassword')]"
+        },
+        "storageProfile": {
+          "imageReference": {
+            "publisher": "Canonical",
+            "offer": "UbuntuServer",
+            "sku": "18.04-LTS",
+            "version": "latest"
+          },
+          "osDisk": {
+            "createOption": "FromImage",
+            "name": "[variables('OsDiscName')]"
+          }
+        },
+        "networkProfile": {
+          "networkInterfaces": [
+            {
+              "id": "[resourceId('Microsoft.Network/networkInterfaces', variables('nicName'))]"
+            }
+          ]
+        }
+      }
     }
   ],
-  "outputs": {
-    "subnetsRefs": {
-      "type": "array",
-      "value": [
-        "[resourceId('Microsoft.Network/virtualNetworks/subnets/', parameters('vnetName'), parameters('subnet1Name'))]",
-        "[resourceId('Microsoft.Network/virtualNetworks/subnets/', parameters('vnetName'), parameters('subnet2Name'))]"
-      ]
-    }
-  }
+  "outputs": {}
 }
