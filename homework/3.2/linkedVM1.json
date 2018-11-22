@@ -26,6 +26,7 @@
     "nicName": "[concat(variables('vmName'), 'nic', parameters('suffix'))]",
     "adminUsername": "[parameters('adminUser')]",
     "publicIpAddressName": "[concat(parameters('prefix'), '-pip', parameters('suffix'))]",
+    "osDiscName": "[concat(parameters('prefix'), '-osDiscName', parameters('suffix'))]",
     "dnsName": "[resourceGroup().name]",
     "adminPassword": "[parameters('adminPassword')]"
   },
@@ -92,7 +93,8 @@
             "version": "latest"
           },
           "osDisk": {
-            "createOption": "FromImage"
+            "createOption": "FromImage",
+            "name": "[variables('osDiscName')]"
           }
         },
         "networkProfile": {
