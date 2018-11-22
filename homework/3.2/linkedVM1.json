@@ -14,6 +14,9 @@
     "subnetRef": {
       "type": "string"
     },
+    "prefix": {
+      "type": "string"
+    },
     "suffix": {
       "type": "string"
     },
@@ -25,7 +28,7 @@
     "vmName": "[concat(parameters('vmNameOrig'), parameters('suffix'))]",
     "nicName": "[concat(variables('vmName'), 'nic', parameters('suffix'))]",
     "adminUsername": "[parameters('adminUser')]",
-    "publicIpAddressName": "[concat('pip', parameters('suffix'))]",
+    "publicIpAddressName": "[concat(parameters('prefix'), 'pip', parameters('suffix'))]",
     "dnsName": "[resourceGroup().name]",
     "adminPassword": "[parameters('adminPassword')]"
   },
