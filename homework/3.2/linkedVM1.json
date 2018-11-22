@@ -26,7 +26,7 @@
     "nicName": "[concat(variables('vmName'), 'nic', parameters('suffix'))]",
     "adminUsername": "[parameters('adminUser')]",
     "publicIpAddressName": "[concat(parameters('prefix'), '-pip', parameters('suffix'))]",
-    "osDiscName": "[concat(parameters('prefix'), '-osDiscName', parameters('suffix'))]",
+    "osDiscName": "[concat(parameters('prefix'), '-osDisc', parameters('suffix'))]",
     "dnsName": "[resourceGroup().name]",
     "adminPassword": "[parameters('adminPassword')]"
   },
