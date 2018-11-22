@@ -23,7 +23,7 @@
   },
   "variables": {
     "vmName": "[concat(parameters('vmNameOrig'), parameters('suffix'))]",
-    "nicName": "[concat(variables('vmName'), 'nic', parameters('suffix'))]",
+    "nicName": "[concat(variables('vmName'), '-nic', parameters('suffix'))]",
     "adminUsername": "[parameters('adminUser')]",
     "publicIpAddressName": "[concat(parameters('prefix'), '-pip', parameters('suffix'))]",
     "osDiscName": "[concat(parameters('prefix'), '-osDisc', parameters('suffix'))]",
