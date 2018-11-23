@@ -2,13 +2,13 @@
   "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
-    "adminLogin": {
+    "adminUser": {
       "type": "string",
       "metadata": {
         "description": "Admin login"
       }
     },
-    "adminSecretPassword": {
+    "adminPassword": {
       "type": "securestring",
       "metadata": {
         "description": "Admin  password"
@@ -138,10 +138,10 @@
         },
         "parameters": {
           "adminUser": {
-            "value": "[parameters('adminLogin')]"
+            "value": "[parameters('adminUser')]"
           },
           "adminPassword": {
-            "value": "[parameters('adminSecretPassword')]"
+            "value": "[parameters('adminPassword')]"
           },
           "vmNameOrig": {
             "value": "[variables('vmName')]"
