@@ -1,0 +1,22 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "vmAdminUserName": {
+      "reference": {
+        "keyVault": {
+          "id": "/subscriptions/ebaff914-3905-4bc0-b619-a867de96a115/resourceGroups/net/providers/Microsoft.KeyVault/vaults/tajnykeyvault"
+        },
+        "secretName": "w3vmAdminUserName"
+      }
+    },
+    "vmAdminUserPass": {
+      "reference": {
+        "keyVault": {
+          "id": "/subscriptions/ebaff914-3905-4bc0-b619-a867de96a115/resourceGroups/net/providers/Microsoft.KeyVault/vaults/tajnykeyvault"
+        },
+        "secretName": "w3vmAdminUserPass"
+      }
+    }
+  }
+}
