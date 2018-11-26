@@ -56,15 +56,14 @@
 
   },
   "variables": {
-    "vnetNameDeploy": "[concat(parameters('branch'), '-', parameters('project'), '-', parameters('env'), '-vnet')]",
-    "prefix": "[concat(parameters('branch'), '-', parameters('project'), '-', parameters('env'))]",
-    "nsgNameDeploy": "[concat(parameters('branch'), '-', parameters('project'), '-', parameters('env'), '-nsg')]",
-    "vmNameLinked": "vmNameLinked",
-    "vmName": "[concat(parameters('branch'), '-', parameters('project'), '-', parameters('env'), '-vm')]",
-    "subnet1Name": "[concat(parameters('branch'), '-', parameters('project'), '-', parameters('env'), '-subnet1')]",
-    "subnet2Name": "[concat(parameters('branch'), '-', parameters('project'), '-', parameters('env'), '-subnet2')]",
-    "publicIpAddressName": "[concat(parameters('branch'), '-', parameters('project'), '-', parameters('env'), '-pip1')]",
-    "dnsName": "[concat(parameters('branch'), '-', parameters('project'), '-', parameters('env'), '-dns')]"
+    "vnetNameDeploy": "[concat(parameters('branch'), parameters('project'), parameters('env'), 'Vnet')]",
+    "prefix": "[concat(parameters('branch'), parameters('project'), parameters('env'))]",
+    "nsgNameDeploy": "[concat(parameters('branch'), parameters('project'), parameters('env'), 'Nsg')]",
+    "vmName": "[concat(parameters('branch'), parameters('project'), parameters('env'), 'Vm')]",
+    "subnet1Name": "[concat(parameters('branch'), parameters('project'), parameters('env'), 'Subnet1')]",
+    "subnet2Name": "[concat(parameters('branch'), parameters('project'),  parameters('env'), 'Subnet2')]",
+    "publicIpAddressName": "[concat(parameters('branch'), parameters('project'),  parameters('env'), 'Pip1')]",
+    "dnsName": "[concat(parameters('branch'),  parameters('project'),  parameters('env'), 'Dns')]"
   },
   "resources": [
     {
@@ -74,7 +73,7 @@
       "properties": {
         "mode": "Incremental",
         "templateLink": {
-          "uri": "https://raw.githubusercontent.com/MiroslawTkaczyk/architecting-azure-solutions/master/homework/3.2/linkedNSG1.json",
+          "uri": "https://raw.githubusercontent.com/MiroslawTkaczyk/architecting-azure-solutions/master/homework/3.2/linkedNSG.json",
           "contentVersion": "1.0.0.0"
         },
         "parameters": {
@@ -95,7 +94,7 @@
       "properties": {
         "mode": "Incremental",
         "templateLink": {
-          "uri": "https://raw.githubusercontent.com/MiroslawTkaczyk/architecting-azure-solutions/master/homework/3.2/linkedVnet1.json",
+          "uri": "https://raw.githubusercontent.com/MiroslawTkaczyk/architecting-azure-solutions/master/homework/3.2/linkedVnet.json",
           "contentVersion": "1.0.0.0"
         },
         "parameters": {
@@ -124,7 +123,7 @@
       }
     },
     {
-      "name": "[concat(variables('vmNameLinked'), copyIndex(1))]",
+      "name": "[concat(variables('vmName'), copyIndex(1))]",
       "type": "Microsoft.Resources/deployments",
       "apiVersion": "2017-05-10",
       "dependsOn": [
@@ -133,7 +132,7 @@
       "properties": {
         "mode": "Incremental",
         "templateLink": {
-          "uri": "https://raw.githubusercontent.com/MiroslawTkaczyk/architecting-azure-solutions/master/homework/3.2/linkedVM1.json",
+          "uri": "https://raw.githubusercontent.com/MiroslawTkaczyk/architecting-azure-solutions/master/homework/3.2/linkedVM.json",
           "contentVersion": "1.0.0.0"
         },
         "parameters": {
