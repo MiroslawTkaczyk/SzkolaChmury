@@ -7,12 +7,12 @@ Opis sytuacji: Jesteś architektem w firmie o europejskim zasięgu i rozpoczynas
 Konwencja nazewnicza.
 
 
-Nazwy wszystkich zasobów zaczynają się od prefixu składającego się z: symbolu oddziału <branch>, symbolu projektu "<project>", rodzaju środowiska <env> deklarowanych w parametrach szablonu. Dodatkowo dodawany jest symbol zasobu i wyróżniający go numer. Np.
+Nazwy wszystkich zasobów zaczynają się od prefixu składającego się z: symbolu oddziału "branch", symbolu projektu "project", rodzaju środowiska "env" deklarowanych w parametrach szablonu. Dodatkowo dodawany jest symbol zasobu i wyróżniający go numer. Np.
 Disk
- <brunch><project><env><osDisc><number>
+ "brunch""project""env""osDisc""number"
  PolSchTestOsDisc1
 Virtual Machine
- <brunch><project><env><VM><number>
+ "brunch""project""env""VM""number"
 PolSchTestPip2
   
   
