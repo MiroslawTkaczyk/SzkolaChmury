@@ -1,0 +1,2 @@
+az group create --name szkola --location westeurope
+az group deployment create -g szkola --template-uri https://raw.githubusercontent.com/MiroslawTkaczyk/architecting-azure-solutions/master/homework/3.2/azuredeploy.json 
