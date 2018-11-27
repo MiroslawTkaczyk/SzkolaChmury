@@ -5,6 +5,8 @@ Opis sytuacji: Jesteś architektem w firmie o europejskim zasięgu i rozpoczynas
 4.	Docelowo, wszystkie kluczowe ustawienia, tak jak np. nazwy lokalnych administratorów i hasła powinny być pobierane z Azure KeyVault
  #TYDZIEN3.1 „Zbuduj prostą konwencję nazewniczą dla min. takich zasobów jak Grupa Zasobów, VNET, Maszyn Wirtualna, Dysk, Konta składowania danych. Pamiętaj o ograniczeniach w nazywaniu zasobów, które występują w Azure”
 Konwencja nazewnicza.
+
+
 Nazwy wszystkich zasobów zaczynają się od prefixu składającego się z: symbolu oddziału <branch>, symbolu projektu <project>, rodzaju środowiska <env> deklarowanych w parametrach szablonu. Dodatkowo dodawany jest symbol zasobu i wyróżniający go numer. Np.
 Disk
  <brunch><project><env><osDisc><number>
@@ -12,6 +14,8 @@ Disk
 Virtual Machine
  <brunch><project><env><VM><number>
 PolSchTestPip2
+  
+  
 #TYDZIEN3.2 „ Zbuduj prosty ARM Template (możesz wykorzystać już gotowe wzorce z GitHub), który wykorzystuje koncepcję Linked Templates. Template powinien zbudować środowisko złożone z jednej sieci VNET, podzielonej na dwa subnety. W każdy subnecie powinna powstać najprostsza maszyna wirtualna z systemem Ubuntu 18.04 a na każdym subnecie powinny zostać skonfigurowane NSG.”
 
 
