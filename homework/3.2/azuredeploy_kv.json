@@ -56,14 +56,14 @@
 
   },
   "variables": {
-    "vnetNameDeploy": "[concat(parameters('branch'), parameters('project'), parameters('env'), 'vnet')]",
-    "prefix": "[concat(parameters('branch'),  parameters('project'),  parameters('env'))]",
-    "nsgNameDeploy": "[concat(parameters('branch'),  parameters('project'),  parameters('env'), 'nsg')]",
+    "vnetNameDeploy": "[concat(parameters('branch'), parameters('project'), parameters('env'), 'Vnet')]",
+    "prefix": "[concat(parameters('branch'),  parameters('project'),  parameters('Env'))]",
+    "nsgNameDeploy": "[concat(parameters('branch'),  parameters('project'),  parameters('env'), 'Nsg')]",
     "vmNameLinked": "vmNameLinked",
-    "vmName": "[concat(parameters('branch'),  parameters('project'),  parameters('env'), 'vm')]",
-    "subnet1Name": "[concat(parameters('branch'),  parameters('project'),  parameters('env'), 'subnet1')]",
-    "subnet2Name": "[concat(parameters('branch'),  parameters('project'),  parameters('env'), 'subnet2')]",
-    "publicIpAddressName": "[concat(parameters('branch'),  parameters('project'),  parameters('env'), 'pip1')]",
+    "vmName": "[concat(parameters('branch'),  parameters('project'),  parameters('env'), 'Vm')]",
+    "subnet1Name": "[concat(parameters('branch'),  parameters('project'),  parameters('env'), 'Subnet1')]",
+    "subnet2Name": "[concat(parameters('branch'),  parameters('project'),  parameters('env'), 'Subnet2')]",
+    "publicIpAddressName": "[concat(parameters('branch'),  parameters('project'),  parameters('env'), 'Pip1')]",
     "dnsName": "[concat(parameters('branch'),  parameters('project'),  parameters('env'), 'dns')]"
   },
   "resources": [
