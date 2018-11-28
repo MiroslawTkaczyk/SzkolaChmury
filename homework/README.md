@@ -7,7 +7,7 @@ Opis sytuacji: Jesteś architektem w firmie o europejskim zasięgu i rozpoczynas
  #TYDZIEN3.1 „Zbuduj prostą konwencję nazewniczą dla min. takich zasobów jak Grupa Zasobów, VNET, Maszyn Wirtualna, Dysk, Konta składowania danych. Pamiętaj o ograniczeniach w nazywaniu zasobów, które występują w Azure”
 Konwencja nazewnicza.
 
-
+Rozwiązanie:
 Nazwy wszystkich zasobów zaczynają się od prefixu składającego się z: symbolu oddziału "branch", symbolu projektu "project", rodzaju środowiska "env" deklarowanych w parametrach szablonu. Dodatkowo dodawany jest symbol zasobu i wyróżniający go numer. Np:
 
 Disk
@@ -19,6 +19,10 @@ PolSchTestVm2
   
   
 #TYDZIEN3.2 „ Zbuduj prosty ARM Template (możesz wykorzystać już gotowe wzorce z GitHub), który wykorzystuje koncepcję Linked Templates. Template powinien zbudować środowisko złożone z jednej sieci VNET, podzielonej na dwa subnety. W każdy subnecie powinna powstać najprostsza maszyna wirtualna z systemem Ubuntu 18.04 a na każdym subnecie powinny zostać skonfigurowane NSG.”
+
+Wdrożenie:
+az group create --name szkola --location westeurope
+az group deployment create -g szkola --template-uri https://raw.githubusercontent.com/MiroslawTkaczyk/architecting-azure-solutions/master/homework/3.2/azuredeploy.json 
 
 
 #TYDZIEN3.3 „Zbuduj najprostrzą właśną rolę RBAC, która pozwala użytkownikowi uruchomić maszynę, zatrzymać ją i zgłosić zgłoszenie do supportu przez Portal Azure”
