@@ -10,10 +10,12 @@ Konwencja nazewnicza.
 Rozwiązanie:
 Nazwy wszystkich zasobów zaczynają się od prefixu składającego się z: symbolu oddziału "branch", symbolu projektu "project", rodzaju środowiska "env" deklarowanych w parametrach szablonu. Dodatkowo dodawany jest symbol zasobu i wyróżniający go numer. Np:
 
-Disk
+Disk:
+
  "brunch""project""env""osDisc""number"
  PolSchTestOsDisc1
-Virtual Machine
+Virtual Machine:
+
  "brunch""project""env""Vm""number"
 PolSchTestVm2
   
@@ -26,6 +28,9 @@ az group deployment create -g szkola --template-uri https://raw.githubuserconten
 
 
 #TYDZIEN3.3 „Zbuduj najprostrzą właśną rolę RBAC, która pozwala użytkownikowi uruchomić maszynę, zatrzymać ją i zgłosić zgłoszenie do supportu przez Portal Azure”
+
+https://github.com/MiroslawTkaczyk/architecting-azure-solutions/tree/master/homework/3.3
+
 #TYDZIEN3.4 „Spróbuj na koniec zmodyfikować template tak, by nazwa użytkownika i hasło do każdej maszyny z pkt. 2 było pobierane z KeyVault.„
 
 https://github.com/MiroslawTkaczyk/architecting-azure-solutions/tree/master/homework/3.4
