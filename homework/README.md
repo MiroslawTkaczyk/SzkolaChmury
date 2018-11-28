@@ -27,3 +27,5 @@ az group deployment create -g szkola --template-uri https://raw.githubuserconten
 
 #TYDZIEN3.3 „Zbuduj najprostrzą właśną rolę RBAC, która pozwala użytkownikowi uruchomić maszynę, zatrzymać ją i zgłosić zgłoszenie do supportu przez Portal Azure”
 #TYDZIEN3.4 „Spróbuj na koniec zmodyfikować template tak, by nazwa użytkownika i hasło do każdej maszyny z pkt. 2 było pobierane z KeyVault.„
+
+https://github.com/MiroslawTkaczyk/architecting-azure-solutions/tree/master/homework/3.4
